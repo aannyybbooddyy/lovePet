@@ -1,16 +1,21 @@
 
 
 const store = {
-    namespaced:true,
-      state: {
+    namespaced:true, 
+      state: { //数据
+        count:0
+      },
+      mutations: { //方法
+       add(state){
+         console.log("添加")
+       }
+        
         
       },
-      mutations: {
-       
-        
-        
+      getters:{ //计算属性
+
       },
-      actions:{
+      actions:{  //异步处理
       
         
       }

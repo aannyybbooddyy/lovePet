@@ -1,8 +1,16 @@
 <template>
-  <h1>member</h1>
+  <h1>123</h1>
 </template>
 <script>
+import { mapState, mapMutations, mapGetters } from "vuex";
+
 export default {
-  name:"member"
+  name:"member",
+  computed:{
+    ...mapState("MemberStore",["count"])
+  }
 }
 </script>
+<style>
+
+</style>

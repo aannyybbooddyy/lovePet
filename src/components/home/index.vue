@@ -21,7 +21,7 @@
           <span>平台管理员</span>
         </template>
           <el-menu-item index="/home/check">门店审核</el-menu-item>
-          <el-menu-item index="/home/pets">宠主管理</el-menu-item>
+          <el-menu-item index="/home/members">宠主管理</el-menu-item>
           <el-menu-item index="/home/users">管理员管理</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
@@ -33,6 +33,7 @@
           <el-menu-item index="/home/goods">商品管理</el-menu-item>
           <el-menu-item index="/home/orders">订单管理</el-menu-item>
           <el-menu-item index="/home/shops">商铺管理</el-menu-item>
+          <el-menu-item index="/home/pets">宠物管理</el-menu-item>
       </el-submenu>
  
     </el-menu>

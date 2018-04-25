@@ -1,8 +1,8 @@
 <template>
-  <h1>goods</h1>
+    <h1>商品列表</h1>
 </template>
 <script>
 export default {
-  name:"goods"
+  name:"goodsList"
 }
 </script>

@@ -68,6 +68,7 @@ import Pets from "./components/pets/pet.vue"
 import Orders from "./components/orders/order.vue"
 import Shops from "./components/shops/shop.vue"
 import Users from "./components/users/user.vue"
+import Check from "./components/check/check.vue"
 import router from "./router/index"
 
 
@@ -75,6 +76,7 @@ Vue.component("Goods",Goods);
 Vue.component("GoodsAdd",GoodsAdd);
 Vue.component("GoodsList",GoodsList);
 Vue.component("GoodsSearch",GoodsSearch);
+Vue.component("Check",Check);
 
 
 

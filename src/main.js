@@ -50,7 +50,7 @@ Vue.use(ElementUI);
 
 
 
-import Store from "./components/goods/store"
+import Store from "./store/store"
 
 
 import Goods from "./components/goods/goods.vue"

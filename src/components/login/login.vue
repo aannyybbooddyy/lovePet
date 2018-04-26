@@ -1,8 +1,8 @@
 <template>
-  <h1>goods</h1>
+  <h1>login</h1>
 </template>
 <script>
 export default {
-  name:"goods"
+  name:"login"
 }
 </script>

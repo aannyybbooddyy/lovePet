@@ -1,16 +1,12 @@
 <template>
-  <h1>123</h1>
+  <el-tabs type="border-card">
+    <el-tab-pane label="宠主添加"><MemberAdd /></el-tab-pane>
+    <el-tab-pane label="宠主列表"><MemberList /></el-tab-pane>
+    <el-tab-pane label="搜索宠主"><MemberSearch /></el-tab-pane>
+  </el-tabs>
 </template>
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
-
 export default {
-  name:"member",
-  computed:{
-    ...mapState("MemberStore",["count"])
-  }
+  name:"member"
 }
 </script>
-<style>
-
-</style>

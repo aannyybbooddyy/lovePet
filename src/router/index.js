@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../components/app/login'
-import Reg from '../components/app/reg'
-import Info from '../components/app/info'
-import TodoList from "../components/todolist/todolist"
-import Counter from "../components/counter/counter"
-import Emp from "../components/app/emp"
-import AddUser from "../components/app/adduser"
-
+import Login from "../components/login/login.vue"
+import Register from "../components/register/register.vue"
+import Home from "../components/home/index.vue"
+import Goods from "../components/goods/goods.vue"
+import Services from "../components/services/service.vue"
+import Members from "../components/members/member.vue"
+import Pets from "../components/pets/pet.vue"
+import Orders from "../components/orders/order.vue"
+import Shops from "../components/shops/shop.vue"
+import Users from "../components/users/user.vue"
 Vue.use(Router)
 
 export default new Router({
@@ -21,28 +23,41 @@ export default new Router({
       name:'loginWithUser',
       component:Login
     },{
-      path:'/reg',
-      name:'reg',
-      component:Reg
+      path:'/register',
+      name:'register',
+      component:Register
     },{
-      path:'/info',
-      name:"info",
-      component:Info,
+      path:'/home',
+      name:"homepage",
+      component:Home,
       children:[{
-        path:'todolist',
-        name:'todolist',
-        component:TodoList
+        path:'goods',
+        name:'goods',
+        component:Goods
       },{
-        path:'counter',
-        name:"counter",
-        component:Counter
+        path:'shops',
+        name:"shops",
+        component:Shops
       },{
-        path:"emp",
-        name:"emp",
-        component:Emp
+        path:"users",
+        name:"users",
+        component:Users
       },{
-        path:"adduser",
-        component:AddUser
+        path:"services",
+        name:"services",
+        component:Services
+      },{
+        path:"pets",
+        name:"pets",
+        component:Pets
+      },{
+        path:"members",
+        name:"members",
+        component:Members
+      },{
+        path:"orders",
+        name:"orders",
+        component:Orders
       }]
     }
   ]

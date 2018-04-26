@@ -5,11 +5,11 @@
       <h1>爱宠邦</h1>
 
   </el-header>
-  <el-container :span="2">
-    <el-aside >
+  <el-container >
+    <el-aside width="200px">
 
       <el-row class="tac">
-        <el-col :span="16">
+        <el-col >
           <el-menu
             :default-openeds="defaultopends"
             class="el-menu-vertical-demo"
@@ -41,7 +41,7 @@
       </el-row>
 
     </el-aside>
-    <el-main :span="10">
+    <el-main :span="22">
         <router-view></router-view>
     </el-main>
   </el-container>

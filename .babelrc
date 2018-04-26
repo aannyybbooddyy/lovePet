@@ -1,7 +1,10 @@
 {
     "presets": [
-     
-      "stage-3"
+      [
+        "stage-3"
+      ]
     ],
-    "plugins": ["transform-vue-jsx", "transform-runtime"]
+    "plugins": [
+      "transform-runtime"
+    ]
   }

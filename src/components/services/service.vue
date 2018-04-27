@@ -1,8 +1,8 @@
 <template>
-  <h1>service</h1>
+  <h1>services</h1>
 </template>
 <script>
 export default {
-  name:"service"
+  name:"services"
 }
 </script>

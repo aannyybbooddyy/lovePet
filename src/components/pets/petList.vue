@@ -1,0 +1,125 @@
+<template>
+  <div>
+      <el-table
+    :data="list"
+    border
+    style="width: 100%">
+    <el-table-column
+      fixed
+      prop="petVarieties"
+      label="品种"
+      width="150">
+    </el-table-column>
+    <el-table-column
+      prop="petHair"
+      label="毛长"
+      width="100">
+    </el-table-column>
+    <el-table-column
+      prop="petShape"
+      label="体型"
+      width="100">
+    </el-table-column>
+    <el-table-column
+      prop="petColor"
+      label="毛色"
+      width="80">
+    </el-table-column>
+    <el-table-column
+      prop="petPrice"
+      label="价格"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="petGender"
+      label="性别"
+      width="100">
+    </el-table-column>
+    <el-table-column
+      prop="petQuarantine"
+      label="是否疫苗"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="petAge"
+      label="年龄"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="petCharacter"
+      label="性格"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      fixed="right"
+      label="操作"
+      width="100">
+      <template slot-scope="scope">
+        <el-button
+        type="text"
+         @click="updata(scope.row)"
+        size="small">修改</el-button>
+        <el-button
+        type="text"
+        @click="del(scope.row)"
+        size="small">删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+  <div class="block" style="width:800px;margin:auto">
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="curpage"
+      :page-sizes="[10,20,30,40]"
+      :page-size="rows"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
+  </div>
+  </div>
+</template>
+<script>
+import {mapState,mapMutations,mapGetters,mapActions} from "vuex"
+export default {
+  name:"petList",
+  watch:{
+    rows:function(){
+      this.getPet()
+    },
+    page:function(){
+      this.getPet()
+    }
+  },
+  computed:{
+    ...mapState("PetStore",["list","page","rows","curpage","eachpage","total","maxpage"]),
+  },
+  methods:{
+    ...mapMutations("PetStore",["updata","handleSizeChange","handleCurrentChange"]),
+    ...mapActions("PetStore",["getPet","delPet"]),
+    del(parm){
+      this.$confirm('此操作将永久删除此条数据，是否继续？','提示',{
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      }).then(()=>{
+        this.delPet(parm._id)
+        this.getPet()
+        this.$message({
+          type:'success',
+          message:'删除成功！'
+        });
+      }).catch(()=>{
+        this.$message({
+          type:'info',
+          message:'已取消删除'
+        });
+      });
+    }
+  },
+  created(){
+    this.getPet()
+  }
+}
+</script>

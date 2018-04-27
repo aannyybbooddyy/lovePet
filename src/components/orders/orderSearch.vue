@@ -3,6 +3,9 @@
 </template>
 <script>
 export default {
-  name:"orderSearch"
+  name:"orderSearch",
+  created(){
+    console.log("insearch")
+  }
 }
 </script>

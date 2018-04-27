@@ -26,7 +26,7 @@ import MemberSearch from "./components/members/memberSearch.vue"
 import Pets from "./components/pets/pet.vue"
 
 import Orders from "./components/orders/order.vue"
-import OrderAdd from "./components/orders/orderAdd.vue"
+import OrderUpdate from "./components/orders/orderUpdate.vue"
 import OrderList from "./components/orders/orderList.vue"
 import OrderSearch from "./components/orders/orderSearch.vue"
 
@@ -54,7 +54,7 @@ Vue.component("Register",Register);
 Vue.component("Members",Members);
 
 Vue.component("Orders",Orders);
-Vue.component("OrderAdd",OrderAdd);
+Vue.component("OrderUpdate",OrderUpdate);
 Vue.component("OrderList",OrderList);
 Vue.component("OrderSearch",OrderSearch);
 

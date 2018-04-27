@@ -1,17 +1,38 @@
 
 const store = {
-    namespaced:true,
-      state: {
-        
-      },
-      mutations: {
-       
-        
-        
-      },
-      actions:{
-      
-        
-      }
+  namespaced: true,
+  state: {
+    goodsList: [{
+      goodsName: '',
+      goodsType: '',
+      goodsMaterial: '',
+      goodsCanFor: '',
+      goodsOnlyFor: '',
+      goodsSize: '',
+      goodsTaste: '',
+      goodsSpecial: '',
+      goodsRegion: '',
+      goodsDate: '',
+      goodsTime: '',
+      goodsSupplier: '',
+      goodsIntro: '',
+      goodsPrice: '',
+      number: '',
+      goodsImg: ""
+    }]
+  },
+  mutations: {
+    add(state, parm) {
+      console.log(parm)
+      this.state.GoodsStore.goodsList = parm
     }
-    export {store as default}
+  },
+  actions: {
+    async getPet(context) {
+      const { goodsList } = context.state
+      const data = await fetch(`/members`).then(response => response.json())
+      context.commit("add", data)
+    }
+  }
+}
+export { store as default }

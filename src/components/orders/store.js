@@ -6,16 +6,7 @@ const store = {
         eachpage:10,
         maxpage:0,
         rows:[],
-        total:0,
-        name:"",
-        curTab:"ordersList",
-      isUpdateDisabled:false,
-      updateInfo:{
-        users:{},
-        members:{},
-        shops:{},
-        orderDetail:[]
-      }
+        total:0
       },
       mutations: {
         getOrders(state,{curpage,eachpage,maxpage,rows,total}){
@@ -36,15 +27,6 @@ const store = {
           console.log(`当前页: ${val}`);
         },
         handleDelete(state,orderId){
-        },
-        setUpdateInfo(state,info){
-          state.updateInfo = info;
-        },
-        setCurTab(state,curtab){
-          state.curTab = curtab;
-        },
-        setIsUpdateDisabled(state,flag){
-          state.isUpdateDisabled = flag;
         }
       },
       actions:{
@@ -71,16 +53,6 @@ const store = {
               },
               body:`orderId=${orderId}`
             })
-
-        },
-        async updateOrderAsync(context, updateInfo){
-          await fetch('/orders',{
-            method:"PUT",
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body:"value=" + JSON.stringify(updateInfo)
-          })
 
         }
       }

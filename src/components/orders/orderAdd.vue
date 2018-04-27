@@ -1,8 +1,8 @@
 <template>
-<h1>查询订单</h1>
+<h1>添加订单</h1>
 </template>
 <script>
 export default {
-  name:"orderSearch"
+  name:"orderAdd"
 }
 </script>

@@ -52,8 +52,6 @@
   </el-table> -->
   <el-table
     :data="rows"
-    highlight-current-row
-    @current-change="handleCurrentChange"
     style="width:100%">
     <el-table-column type="expand">
       <template slot-scope="props">
@@ -84,48 +82,48 @@
           </el-form-item>
           <el-form-item class="itemList">
             <el-table class="detailTable"
-              border
-                :data="props.row.orderDetail"
-                style="width: 100%">
-                <el-table-column
-                  prop="type"
-                  label="宝贝类型"
-                  width="80"
-                  :formatter="typeFormatter"
-                  >
-                </el-table-column>
-                <el-table-column
-                  prop="id"
-                  label="宝贝ID"
-                  width="220">
-                </el-table-column>
-                <el-table-column
-                  prop="name"
-                  label="宝贝名称"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="count"
-                  label="宝贝数量"
-                  width="80">
-                </el-table-column>
-                <el-table-column
-                  prop="price"
-                  label="宝贝单价"
-                  width="100">
-                </el-table-column>
-                <el-table-column
-                  prop="total"
-                  label="宝贝总价"
-                  width="100">
-                </el-table-column>
-                <el-table-column
-                  prop="shopAdd"
-                  label="服务地址"
-                  :formatter="shopAddFormatter">
-                </el-table-column>
-                
-              </el-table>
+            border
+              :data="props.row.orderDetail"
+              style="width: 100%">
+              <el-table-column
+                prop="type"
+                label="宝贝类型"
+                width="80"
+                :formatter="typeFormatter"
+                >
+              </el-table-column>
+              <el-table-column
+                prop="id"
+                label="宝贝ID"
+                width="220">
+              </el-table-column>
+              <el-table-column
+                prop="name"
+                label="宝贝名称"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="count"
+                label="宝贝数量"
+                width="80">
+              </el-table-column>
+              <el-table-column
+                prop="price"
+                label="宝贝单价"
+                width="100">
+              </el-table-column>
+              <el-table-column
+                prop="total"
+                label="宝贝总价"
+                width="100">
+              </el-table-column>
+              <el-table-column
+                prop="shopAdd"
+                label="服务地址"
+                :formatter="shopAddFormatter">
+              </el-table-column>
+              
+            </el-table>
           </el-form-item>
 
         </el-form>
@@ -152,8 +150,8 @@
       label="操作"
       width="100">
       <template slot-scope="scope">
-        <i class="el-icon-delete" @click="handleDelete(scope.row._id)"></i>
-        <i class="el-icon-edit" @click="handleUpdate(scope.row)"></i>
+        <el-button @click="handleDelete(scope.row._id)" type="text" size="small">删除</el-button>
+        <el-button type="text" size="small">修改</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -174,36 +172,17 @@ import { mapState,mapMutations,mapActions} from "vuex"
 export default {
   name:"orderList",
   computed:{
-    ...mapState("OrderStore",["rows","total","curpage","eachpage","maxpage","name","updateInfo","isUpdateDisabled","curTab"])
+    ...mapState("OrderStore",["rows","total","curpage","eachpage","maxpage"])
   },
   methods:{
-    ...mapMutations("OrderStore",["getOrders","handleSizeChange","handleCurrentChange","setUpdateInfo","setCurTab","setIsUpdateDisabled"]),
+    ...mapMutations("OrderStore",["getOrders","handleSizeChange","handleCurrentChange"]),
     ...mapActions("OrderStore",["getOrdersAsync","deleteOrdersAsync"]),
-    handleDelete:function(orderId){
-        this.$confirm('此操作将永久删除该订单, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(
-        async  () => {
-          await this.deleteOrdersAsync(orderId);
-
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          this.getOrdersAsync();
-
-        }).catch(() => {});
-    },
-    handleUpdate:function(row){
-      this.setUpdateInfo(row);
-      this.setCurTab("ordersUpdate");
-      this.setIsUpdateDisabled(true);
-      },
-      handleCurrentChange(val) {
-        this.currentRow = val;
-      }
+    handleDelete:
+    async function(orderId){
+      console.log(this)
+      await this.deleteOrdersAsync(orderId);
+      this.getOrdersAsync();
+    }
   },
   created(){
      this.getOrdersAsync(); 

@@ -92,7 +92,7 @@
      >
        <template slot-scope="scope">
          <el-button size="small" round>修改</el-button>
-         <el-button size="small" round @click="delt">删除</el-button>
+         <el-button size="small" round>删除</el-button>
            </template>
     </el-table-column>
   </el-table>
@@ -106,11 +106,7 @@ export default {
     ...mapState("GoodsStore", ["goodsList"])
   },
   methods: {
-    ...mapActions("GoodsStore", ["getPet"]),
-    delt(){  
-      console.log("删除")
-      console.log(this.goodsList[0]._id)
-    }
+    ...mapActions("GoodsStore", ["getPet"])
   },
   created() {
     this.getPet();

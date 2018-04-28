@@ -1,27 +1,25 @@
 <template>
   <div style="width:500px;margin:auto">
-    <el-form ref="form" status-icon :model="form" label-width="100px"  class="demo-ruleForm">
-    <el-form-item
-    label="电话号码">
+    <el-form ref="form" status-icon :rules="rules" :model="form" label-width="100px"  class="demo-ruleForm">
+    <el-form-item prop="memberPhone" label="电话号码">
       <el-input type="memberPhone"  auto-complete="off" v-model.number="form.memberPhone"></el-input>
     </el-form-item>
-    <el-form-item label="昵称">
+    <el-form-item prop="memberAcount" label="昵称">
       <el-input v-model="form.memberAcount"></el-input>
     </el-form-item>
-    <el-form-item label="真实姓名">
+    <el-form-item prop="memberName" label="真实姓名">
       <el-input v-model="form.memberName"></el-input>
     </el-form-item>
-    <el-form-item
-    label="会员卡号">
+    <el-form-item prop="memberCard" label="会员卡号">
       <el-input v-model.number="form.memberCard"></el-input>
     </el-form-item>
-     <el-form-item label="送货地址">
+     <el-form-item prop="memberAdd" label="送货地址">
       <el-input v-model="form.memberAdd"></el-input>
     </el-form-item>
-     <el-form-item label="区域">
+     <el-form-item prop="memberArea" label="区域">
       <el-input v-model="form.memberArea"></el-input>
     </el-form-item>
-     <el-form-item label="积分">
+     <el-form-item prop="memberPoint" label="积分">
       <el-input v-model="form.memberPoint"></el-input>
     </el-form-item>
      <el-form-item label="头图">
@@ -58,8 +56,8 @@ export default {
   methods:{
      ...mapActions("MemberStore",["addCember","getCember"]),
      ...mapMutations("MemberStore",["handleRemove","handlePreview"]),
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+      resetForm(form) {
+        this.$refs[form].resetFields();
       },
       validatePass(rule, value, callback){
         if (value === '') {
@@ -71,19 +69,29 @@ export default {
           callback();
         }
       },
-     add(formName){
-          this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert('submit!');
+     add(form){
+          this.$refs[form].validate(async (valid) => {
+          if (valid) {   
+          await this.addCember()
+                    this.$message({
+                        message: '添加成功',
+                        type: 'success'
+                      });
+                    this.$refs[form].resetFields();
+                    this.getCember()
             } else {
-              console.log('error submit!!');
+              this.$message({
+                  message: '取消添加',
+                  type: 'warning'
+                });
               return false;
             }
         });
-       this.addCember()
-       this.getCember()
+ 
      },
+
      handleAvatarSuccess(res, file) {
+       console.log(res)
        let url = res.replace("public\\", "").replace("\\","/")
        this.form.memberImg = `http://127.0.0.1:3000/${url}`
       },

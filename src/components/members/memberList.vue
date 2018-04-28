@@ -192,8 +192,8 @@ export default {
            type: 'warning',
            center: true
          }).then(async () => {
-           await this.delMembers(parm._id)
-           await this.getCember()
+          await  this.delMembers(parm)
+           this.getCember()
            this.$message({
              type: 'success',
              message: '删除成功!'

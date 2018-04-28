@@ -3,7 +3,35 @@ const store = {
     namespaced:true, 
       state: { //数据
         form:{
-          
+          memberPhone:"",
+          memberAcount:"",
+          memberName:"",
+          memberCard:"",
+          memberAdd:"",
+          memberArea:"",
+          memberPoint:"",
+          memberImg:""
+        },
+        rules:{
+          memberPhone:[
+            {required:true,message: '手机号码不能为空'},
+            {type: 'number', message: '会员卡号必须为数字值'},
+            {validator:async (rule, value, callback)=>{
+            if((value+"").length == 11){
+              let data = await fetch(`/members/isPhoneRepet?memberPhone=${value}`).then(response => response.json())
+              if (data) {
+                return callback();
+              }else{
+                return callback(new Error('号码重复'));
+              }
+            }else{
+              return callback(new Error('号码位数不对'));
+            }
+          }, trigger: 'blur'
+        }],
+          memberCard:[
+          {required:true, message: '会员卡号不能为空'},
+          { type: 'number', message: '会员卡号必须为数字值',trigger: 'blur'}]
         },
         //列表用分页
         page:1,
@@ -21,8 +49,8 @@ const store = {
         total2:0,
         maxpage2:0,
         search:{
-          name:"请选择",
-          select:" "
+          name:"memberPhone",
+          select:""
         },
         dialogVisible2:false,
         dialogVisible: false,
@@ -91,7 +119,6 @@ const store = {
         //增加数据
         async addCember(context){
           let form = context.state.form
-          console.log("进入添加")
           await fetch(`/members`,{
             method:"post",
             headers: {
@@ -110,13 +137,13 @@ const store = {
         },
         //删除
         async delMembers(context,parm){
-           await fetch("/members", {
+            fetch("/members", {
               method: "delete",
               headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+                'Content-Type': 'application/json'
               },
-              body:'id='+parm
-            })
+              body:JSON.stringify(parm)
+            }).then()
         },
         //修改
         async updata2(context,parm){

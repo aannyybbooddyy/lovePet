@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import App from './App'
 //elementUI
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -23,10 +24,14 @@ import Members from "./components/members/member.vue"
 import MemberAdd from "./components/members/memberAdd.vue"
 import MemberList from "./components/members/memberList.vue"
 import MemberSearch from "./components/members/memberSearch.vue"
-import Pets from "./components/pets/pet.vue"
+
+import Pet from "./components/pets/pet.vue"
+import PetAdd from "./components/pets/petAdd.vue"
+import PetList from "./components/pets/petList.vue"
+import PetSearch from "./components/pets/petSearch.vue"
 
 import Orders from "./components/orders/order.vue"
-import OrderAdd from "./components/orders/orderAdd.vue"
+import OrderUpdate from "./components/orders/orderUpdate.vue"
 import OrderList from "./components/orders/orderList.vue"
 import OrderSearch from "./components/orders/orderSearch.vue"
 
@@ -54,14 +59,19 @@ Vue.component("Register",Register);
 Vue.component("Members",Members);
 
 Vue.component("Orders",Orders);
-Vue.component("OrderAdd",OrderAdd);
+Vue.component("OrderUpdate",OrderUpdate);
 Vue.component("OrderList",OrderList);
 Vue.component("OrderSearch",OrderSearch);
 
 
 
 Vue.component("Services",Services);
-Vue.component("Pets",Pets);
+
+Vue.component("Pet",Pet);
+Vue.component("PetAdd",PetAdd);
+Vue.component("PetList",PetList);
+Vue.component("PetSearch",PetSearch);
+
 Vue.component("Shops",Shops);
 Vue.component("Users",Users);
 
@@ -69,6 +79,7 @@ new Vue({
   el: '#app',
   router,
   store:Store,
+  components: { App },
   template:'<router-view />'
 })
 

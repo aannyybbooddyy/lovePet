@@ -62,13 +62,13 @@
   </el-table>
   <div class="block" style="width:800px;margin:auto">
     <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="curpage"
+      @size-change="handleSizeChange2"
+      @current-change="handleCurrentChange2"
+      :current-page="curpage2"
       :page-sizes="[10,20,30,40]"
-      :page-size="rows"
+      :page-size="rows2"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
+      :total="total2">
     </el-pagination>
   </div>
   </div>
@@ -78,11 +78,19 @@
 import {mapState,mapMutations,mapGetters,mapActions} from "vuex"
 export default {
   name:"memberSearch",
+    watch:{
+    rows2:function(){
+      this.searchMembers()
+    },
+    page2:function(){
+      this.searchMembers()
+    }
+  },
     computed:{
-     ...mapState("MemberStore",["list2","page","rows","curpage","eachpage","total","maxpage","search"]),
+     ...mapState("MemberStore",["list2","page2","rows2","curpage2","eachpage2","total2","maxpage2","search"]),
   },
     methods:{
-    ...mapMutations("MemberStore",["del","updata","handleSizeChange","handleCurrentChange"]),
+    ...mapMutations("MemberStore",["del","updata","handleSizeChange2","handleCurrentChange2"]),
     ...mapActions("MemberStore",["searchMembers"])
   }
 }

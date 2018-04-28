@@ -8,6 +8,7 @@ import OrderStore from "../components/orders/store"
 import ShopStore from "../components/shops/store"
 import UserStore from "../components/users/store"
 
+
 Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {

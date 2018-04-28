@@ -3,14 +3,7 @@ const store = {
     namespaced:true, 
       state: { //数据
         form:{
-          memberPhone:"",
-          memberAcount:"",
-          memberName:"",
-          memberCard:"",
-          memberAdd:"",
-          memberArea:"",
-          memberPoint:"",
-          memberImg: ''
+          
         },
         //列表用分页
         page:1,
@@ -19,6 +12,7 @@ const store = {
         eachpage:0,
         total:0,
         maxpage:0,
+        isTure : true,
         //搜索用分页
         page2:1,
         rows2:10,
@@ -30,41 +24,11 @@ const store = {
           name:"请选择",
           select:" "
         },
+        dialogVisible2:false,
         dialogVisible: false,
-        list2:[
-        ],
-        list3:{    
-            memberPhone:"18202875032",
-            memberAcount:"花和尚",
-            memberName:"楚留香",
-            memberCard:"00001",
-            memberAdd:"成都市金牛区抚琴东南路",
-            memberArea:"成都",
-            memberPoint:0,
-            memberImg: ''
-          },
-        list:[
-          // {    
-          //   memberPhone:"18202875032",
-          //   memberAcount:"花和尚",
-          //   memberName:"楚留香",
-          //   memberCard:"00001",
-          //   memberAdd:"成都市金牛区抚琴东南路",
-          //   memberArea:"成都",
-          //   memberPoint:0,
-          //   memberImg: ''
-          // },
-          // {   
-          //   memberPhone:"18202875032",
-          //   memberAcount:"花和尚",
-          //   memberName:"楚留香",
-          //   memberCard:"00001",
-          //   memberAdd:"成都市金牛区抚琴东南路",
-          //   memberArea:"成都",
-          //   memberPoint:0,
-          //   memberImg: ''
-          // }
-        ]
+        list2:[],
+        list3:{},
+        list:[]
       },
       mutations: { //方法
         handleSizeChange(state,parm) {
@@ -81,10 +45,21 @@ const store = {
         },
         getdialogVisible(state){
           state.dialogVisible = false
+
+        },
+        getdialogVisible2(state){
+          state.dialogVisible2 = false
         },
        updata(state,parm){
         state.dialogVisible = true
-        state.list3 = parm
+        let a = JSON.stringify(parm)
+        state.list3 = JSON.parse(a)
+       } ,
+       updata_(state,parm){
+        state.dialogVisible2 = true
+        //处理,避免修改数据的BUG
+        let a = JSON.stringify(parm)
+        state.list3 = JSON.parse(a)
        } ,
        getData(state,parm){
         state.list=parm.rows;
@@ -92,6 +67,7 @@ const store = {
         state.eachpage=parm.eachpage;
         state.maxpage=parm.maxpage;
         state.total=parm.total;
+        state.isTure = false;
        },
        getData2(state,parm){
         state.list2 = parm.rows;
@@ -99,6 +75,7 @@ const store = {
         state.eachpage2=parm.eachpage;
         state.maxpage2=parm.maxpage;
         state.total2=parm.total;
+        state.isTure = false;
        }
       },
       getters:{ //计算属性
@@ -144,6 +121,7 @@ const store = {
         //修改
         async updata2(context,parm){
           context.state.dialogVisible = false
+          context.state.dialogVisible2 = false
           let list3 = context.state.list3
           await fetch("/members", {
             method: "put",

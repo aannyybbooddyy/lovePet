@@ -1,19 +1,19 @@
 <template>
   <div style="width:500px;margin:auto">
-      <el-form ref="form" :model="form" label-width="100px">
+    <el-form ref="form" status-icon :model="form" label-width="100px"  class="demo-ruleForm">
     <el-form-item
-       :rules="[
-        { required: true, message: '年龄不能为空'},
-        { type: 'number', message: '年龄必须为数字值'}
-       ]"
     label="电话号码">
-      <el-input v-model="form.memberPhone"></el-input>
+      <el-input type="memberPhone"  auto-complete="off" v-model.number="form.memberPhone"></el-input>
     </el-form-item>
     <el-form-item label="昵称">
       <el-input v-model="form.memberAcount"></el-input>
     </el-form-item>
     <el-form-item label="真实姓名">
       <el-input v-model="form.memberName"></el-input>
+    </el-form-item>
+    <el-form-item
+    label="会员卡号">
+      <el-input v-model.number="form.memberCard"></el-input>
     </el-form-item>
      <el-form-item label="送货地址">
       <el-input v-model="form.memberAdd"></el-input>
@@ -39,7 +39,7 @@
 
     </el-form-item>
      <el-form-item label="拥有的宠物">
-      <el-input v-model="form.name"></el-input>
+      <el-input v-model="form.memberPet"></el-input>
     </el-form-item>
     <div style="width:200px;margin:auto">
       <el-button @click="resetForm('form')">重置</el-button>
@@ -52,14 +52,24 @@
 import {mapState,mapMutations,mapGetters,mapActions} from "vuex"
 export default {
   name:"memberAdd",
-   computed:{
-    ...mapState("MemberStore",["form","total"]),
+  computed:{
+    ...mapState("MemberStore",["form","total","rules"]),
   },
   methods:{
      ...mapActions("MemberStore",["addCember","getCember"]),
      ...mapMutations("MemberStore",["handleRemove","handlePreview"]),
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      validatePass(rule, value, callback){
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.ruleForm2.checkPass !== '') {
+            this.$refs.ruleForm2.validateField('checkPass');
+          }
+          callback();
+        }
       },
      add(formName){
           this.$refs[formName].validate((valid) => {

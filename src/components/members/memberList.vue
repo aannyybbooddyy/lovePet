@@ -1,6 +1,10 @@
 <template>
   <div>
-      <el-table
+    <el-table
+    v-loading="isTure"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.3)"
     :data="list"
     border
     stripe
@@ -20,6 +24,11 @@
       prop="memberCard"
       label="会员卡号"
       width="150">
+    </el-table-column>
+    <el-table-column
+      prop="memberPet"
+      label="拥有的宠物"
+      width="120">
     </el-table-column>
     <el-table-column
       prop="memberPoint"
@@ -72,20 +81,16 @@
   </div>
 
 
-<el-dialog
+  <div class="box">
+    <el-dialog
   title="修改"
-  :visible.sync="dialogVisible"
+  :visible.sync="dialogVisible2"
   width="60%"
-  :before-close="getdialogVisible">
+  :before-close="getdialogVisible2">
   
   <div style="width:500px;margin:auto">
       <el-form ref="form" :model="list3" label-width="100px">
-    <el-form-item
-       :rules="[
-        { required: true, message: '年龄不能为空'},
-        { type: 'number', message: '年龄必须为数字值'}
-       ]"
-    label="电话号码">
+    <el-form-item label="电话号码">
       <el-input v-model="list3.memberPhone"></el-input>
     </el-form-item>
     <el-form-item label="昵称">
@@ -114,22 +119,18 @@
       <img v-if="list3.memberImg" :src="list3.memberImg" class="avatar">
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
-
-
     </el-form-item>
      <el-form-item label="拥有的宠物">
-      <el-input v-model="list3.name"></el-input>
+      <el-input v-model="list3.memberPet"></el-input>
     </el-form-item>
   </el-form>
   </div>
-
-
-
   <span slot="footer" class="dialog-footer">
-    <el-button @click="getdialogVisible">取 消</el-button>
+    <el-button @click="getdialogVisible2">取 消</el-button>
     <el-button type="primary" @click="updata3">确 定</el-button>
   </span>
 </el-dialog>
+  </div>
 
 
 
@@ -139,6 +140,7 @@
 import {mapState,mapMutations,mapGetters,mapActions} from "vuex"
 export default {
   name:"memberList",
+
   watch:{
     rows:function(){
       this.getCember()
@@ -148,14 +150,14 @@ export default {
     },
   },
   computed:{
-    ...mapState("MemberStore",["dialogVisible","list","list3","page","rows","curpage","eachpage","total","maxpage"]),
+    ...mapState("MemberStore",["isTure","dialogVisible2","list","list3","page","rows","curpage","eachpage","total","maxpage"]),
   },
   methods:{
     up(parm){
-      this.updata(parm)
+      this.updata_(parm)
     },
-    updata3(){
-      this.updata2()
+    async updata3(){
+      await this.updata2()
       this.getCember()
     },
      handleAvatarSuccess(res, file) {
@@ -181,7 +183,7 @@ export default {
           })
           .catch(_ => {});
       },
-    ...mapMutations("MemberStore",["getdialogVisible","updata","handleSizeChange","handleCurrentChange"]),
+    ...mapMutations("MemberStore",["getdialogVisible2","updata_","handleSizeChange","handleCurrentChange"]),
     ...mapActions("MemberStore",["getCember","updata2","delMembers"]),
     del(parm){
           this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -189,9 +191,9 @@ export default {
            cancelButtonText: '取消',
            type: 'warning',
            center: true
-         }).then(() => {
-           this.delMembers(parm._id)
-           this.getCember()
+         }).then(async () => {
+           await this.delMembers(parm._id)
+           await this.getCember()
            this.$message({
              type: 'success',
              message: '删除成功!'
@@ -209,3 +211,7 @@ export default {
  }
 }
 </script>
+<style>
+
+</style>
+

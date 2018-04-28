@@ -20,6 +20,9 @@ import Home from "./components/home/index.vue"
 import Login from "./components/goods/goods.vue"
 import Register from "./components/register/register.vue"
 import Services from "./components/services/service.vue"
+import list from "./components/services/list.vue"
+import service from "./components/services/service.vue"
+import add from "./components/services/add.vue"
 import Members from "./components/members/member.vue"
 import MemberAdd from "./components/members/memberAdd.vue"
 import MemberList from "./components/members/memberList.vue"
@@ -58,6 +61,9 @@ Vue.component("Login",Login);
 Vue.component("Register",Register);
 Vue.component("Members",Members);
 
+Vue.component("list",list);
+Vue.component("service",service);
+Vue.component("add",add);
 Vue.component("Orders",Orders);
 Vue.component("OrderUpdate",OrderUpdate);
 Vue.component("OrderList",OrderList);

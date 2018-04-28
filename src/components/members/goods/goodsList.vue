@@ -1,18 +1,8 @@
 <template>
-      <el-form ref="numberValidateForm" label-width="100px" class="demo-ruleForm">
-  
-   <el-input placeholder="请输入内容" v-model="search.goodsType" class="input-with-select">
-    <el-select v-model="search.select" slot="prepend" placeholder="请选择" style="width:100px">
-      <el-option label="商品类型" value="1"></el-option>
-      <!-- <el-option label="订单号" value="2"></el-option>
-      <el-option label="用户电话" value="3"></el-option> -->
-    </el-select>
-    <el-button slot="append" icon="el-icon-search" @click="searchGoods"></el-button>
-  </el-input>
-   <el-table
-    :data="search"
+     <el-table
+    :data="goodsList"
     style="width: 100%"
-    height="600">
+    height="300">
     <el-table-column
       fixed
       prop="goodsName"
@@ -42,7 +32,7 @@
     <el-table-column
       prop="goodsSize"
       label="包装规格"
-      width="100">
+      width="80">
     </el-table-column>
     <el-table-column
       prop="goodsTaste"
@@ -102,27 +92,27 @@
      >
        <template slot-scope="scope">
          <el-button size="small" round>修改</el-button>
-         <el-button size="small" round @click="delt(scope.row._id)">删除</el-button>
+         <el-button size="small" round>删除</el-button>
            </template>
     </el-table-column>
   </el-table>
-</el-form>
-
 </template>
-<script>
-import {mapState,mapActions} from 'vuex'
-export default {
-  name:"goodsSearch",
-  computed:{
-      ...mapState("GoodsStore",["search"])
-    },
-    methods:{
-      ...mapActions("GoodsStore",["getMethod"]),
-      searchGoods(){
-        this.getMethod();
-      }
-    }
-    
-}
-</script>
 
+<script>
+import { mapState, mapActions, mapMutations } from "vuex";
+export default {
+  name: "GoodsList",
+  computed: {
+    ...mapState("GoodsStore", ["goodsList"])
+  },
+  methods: {
+    ...mapActions("GoodsStore", ["getPet"])
+  },
+  created() {
+    this.getPet();
+  }
+};
+</script>
+<style>
+
+</style>

@@ -53,7 +53,7 @@
   <el-table
     :data="rows"
     highlight-current-row
-    @current-change="handleCurrentChange"
+    @current-change="handleCurrentRowChange"
     style="width:100%">
     <el-table-column type="expand">
       <template slot-scope="props">
@@ -150,23 +150,24 @@
      <el-table-column
       fixed="right"
       label="操作"
-      width="100">
+      align="center"
+      width="150">
       <template slot-scope="scope">
-        <i class="el-icon-delete" @click="handleDelete(scope.row._id)"></i>
-        <i class="el-icon-edit" @click="handleUpdate(scope.row)"></i>
+        <el-button icon="el-icon-delete" circle @click="handleDelete(scope.row._id)"></el-button>
+        <el-button icon="el-icon-edit" circle @click="handleUpdate(scope.row)"></el-button>
       </template>
     </el-table-column>
   </el-table>
   <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="curpage"
-      :page-sizes="[10, 20, 30, 40]"
-      :page-size="eachpage"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
-  </div>
+    @size-change="handleSizeChange"
+    @current-change="handleCurrentChange"
+    :current-page="curpage"
+    :page-sizes="[10, 20, 30, 40]"
+    :page-size="eachpage"
+    layout="total, sizes, prev, pager, next, jumper"
+    :total="total">
+  </el-pagination>
+</div>
   
 </template>
 <script>
@@ -176,9 +177,18 @@ export default {
   computed:{
     ...mapState("OrderStore",["rows","total","curpage","eachpage","maxpage","name","updateInfo","isUpdateDisabled","curTab"])
   },
+  watch:{
+    curpage:function(){
+      this.getOrdersAsync();
+    },
+    eachpage:function(){
+      console.log("重新拉去")
+      this.getOrdersAsync();
+    }
+  },
   methods:{
     ...mapMutations("OrderStore",["getOrders","handleSizeChange","handleCurrentChange","setUpdateInfo","setCurTab","setIsUpdateDisabled"]),
-    ...mapActions("OrderStore",["getOrdersAsync","deleteOrdersAsync"]),
+    ...mapActions("OrderStore",["getOrdersAsync","deleteOrdersAsync","getCurUser"]),
     handleDelete:function(orderId){
         this.$confirm('此操作将永久删除该订单, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -200,11 +210,12 @@ export default {
       this.setCurTab("ordersUpdate");
       this.setIsUpdateDisabled(true);
       },
-      handleCurrentChange(val) {
+      handleCurrentRowChange(val) {
         this.currentRow = val;
       }
   },
   created(){
+    this.getCurUser();
      this.getOrdersAsync(); 
   },
   data(){

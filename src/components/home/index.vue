@@ -29,7 +29,7 @@
                 <i class="el-icon-location"></i>
                 <span>门店管理员</span>
               </template>
-                <el-menu-item index="/home/services">服务管理</el-menu-item>
+                <el-menu-item index="/home/list">服务管理</el-menu-item>
                 <el-menu-item index="/home/goods">商品管理</el-menu-item>
                 <el-menu-item index="/home/orders">订单管理</el-menu-item>
                 <el-menu-item index="/home/shops">商铺管理</el-menu-item>

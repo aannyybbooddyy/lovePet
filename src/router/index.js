@@ -4,7 +4,7 @@ import Login from "../components/login/login.vue"
 import Register from "../components/register/register.vue"
 import Home from "../components/home/index.vue"
 import Goods from "../components/goods/goods.vue"
-import Services from "../components/services/service.vue"
+import list from "../components/services/list.vue"
 import Members from "../components/members/member.vue"
 import Pets from "../components/pets/pet.vue"
 import Orders from "../components/orders/order.vue"
@@ -45,9 +45,9 @@ export default new Router({
         name:"users",
         component:Users
       },{
-        path:"services",
-        name:"services",
-        component:Services
+        path:"list",
+        name:"list",
+        component:list
       },{
         path:"pets",
         name:"pets",

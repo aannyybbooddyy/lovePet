@@ -16,3 +16,8 @@ export default {
   }
 }
 </script>
+<style>
+.el-tabs__content{
+  /* height: 550px;; */
+}
+</style>

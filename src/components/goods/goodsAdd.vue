@@ -1,6 +1,6 @@
 <template>
 <div style="width:600px;margin:auto">
-  <el-form  label-width="80px" >
+  <el-form v-model="AddList"  label-width="80px" >
   <el-form-item label="名称">
     <el-input v-model="AddList.goodsName"></el-input>
   </el-form-item>
@@ -46,24 +46,22 @@
   <el-form-item label="数量">
     <el-input v-model="AddList.number"></el-input>
   </el-form-item>
-  <!-- <el-form-item label="图片">
-    <el-input v-model="AddList.goodsImg"></el-input>
-  </el-form-item> -->
-    <el-form-item label="上传图片">
-      <el-upload
-        action="/express/img"
-        list-type="picture-card"
-        multiple
-        >
-        <i class="el-icon-plus"></i>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt="">
-      </el-dialog>
-    </el-form-item>
+  <el-form-item label="上传图片">
+    <el-upload
+      action="/members/upload"
+      list-type="picture-card"
+      :on-success="handlePictureCardPreview"
+      >
+      <i class="el-icon-plus"></i>
+    </el-upload>
+    <el-dialog :visible.sync="dialogVisible">
+      <img width="100%"  alt="">
+    </el-dialog>
+  </el-form-item>
+   
    <el-form-item>
     <el-button type="primary" @click="add">点击增加</el-button>
-    <el-button type="primary" >重置</el-button>
+    <el-button type="primary">重置</el-button>
   </el-form-item>
 </el-form>
 </div>
@@ -73,29 +71,39 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name:"goodsAdd",
-   data() {
-      return {
-        dialogImageUrl: '',
-        dialogVisible: false
-      };
-    },
-    methods: {
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      }
-    },
+   
+    
    computed: {
-    ...mapState("GoodsStore", ["AddList"])
+    ...mapState("GoodsStore", ["AddList","dialogVisible"])
   },
   methods: {
-    add(){
-     this.addGoods();
+    async add(){
+     await this.addGoods();
+     console.log("AddList:",this.AddList)
+      this.getPet()
+      this.AddList.goodsName = ''
+      this.AddList.goodsType = ''
+      this.AddList.goodsMaterial = ''
+      this.AddList.goodsCanFor = ''
+      this.AddList.goodsOnlyFor = ''
+      this.AddList.goodsSize = ''
+      this.AddList.goodsTaste = ''
+      this.AddList.goodsSpecial = ''
+      this.AddList.goodsRegion = ''
+      this.AddList.goodsDate = ''
+      this.AddList.goodsTime = ''
+      this.AddList.goodsSupplier = ''
+      this.AddList.goodsIntro = ''
+      this.AddList.goodsPrice = ''
+      this.AddList.number = ''
+      this.AddList.goodsImg = ''
      },
-    ...mapActions("GoodsStore", ["addGoods"])
+    //  ...mapMutations("GoodsStore",["reset"]),
+    ...mapActions("GoodsStore", ["addGoods","getPet"]),
+    handlePictureCardPreview(file){
+      let url = `http://127.0.0.1:3000${file}`.replace("public","").replace(/\\/g,"/")
+      this.AddList.goodsImg  = url
+    }
   },
 }
 </script>

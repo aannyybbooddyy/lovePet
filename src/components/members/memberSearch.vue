@@ -1,7 +1,7 @@
 <template>
     <div>
       <el-input placeholder="请输入内容" v-model="search.select" class="input-with-select">
-        <el-select style="width:130px" v-model="search.name" slot="prepend" placeholder="请选择">
+        <el-select style="width:300" v-model="search.name" slot="prepend" placeholder="请选择">
           <el-option label="电话号码" value="memberPhone"></el-option>
           <el-option label="昵称" value="memberAcount"></el-option>
           <el-option label="会员卡号" value="memberCard"></el-option>

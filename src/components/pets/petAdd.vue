@@ -58,6 +58,7 @@ export default {
   name:"petAdd",
    computed:{
     ...mapState("PetStore",["form","total","ip"]),
+    ...mapState("MemberStore",["ip"])
   },
   methods:{
     ...mapActions("PetStore",["addPet","getPet"]),

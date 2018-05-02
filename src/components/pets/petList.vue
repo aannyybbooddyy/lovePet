@@ -161,7 +161,8 @@ export default {
     },
   },
   computed:{
-    ...mapState("PetStore",["ip","isTure","dialogFormVisible","list","list3","page","rows","curpage","eachpage","total","maxpage"]),
+    ...mapState("PetStore",["isTure","dialogFormVisible","list","list3","page","rows","curpage","eachpage","total","maxpage"]),
+     ...mapState("MemberStore",["ip"])
   },
   methods:{
 

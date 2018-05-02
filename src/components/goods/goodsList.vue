@@ -178,7 +178,8 @@ export default {
   name: "GoodsList",
   
   computed: {
-    ...mapState("GoodsStore", ["goodsList","AddList","dialogVisible","centerDialogVisible"])
+    ...mapState("GoodsStore", ["goodsList","AddList","dialogVisible","centerDialogVisible"]),
+    ...mapState("MemberStore",["ip"])
   },
   methods: {
     ...mapMutations("GoodsStore", ["close","getPet","opens"]),
@@ -201,7 +202,7 @@ export default {
       this.getPet()
     },
     handlePictureCardPreview(file){
-      let url = `http://127.0.0.1:3000${file}`.replace("public","").replace(/\\/g,"/")
+      let url = `http://${this.ip}:3000${file}`.replace("public","").replace(/\\/g,"/")
       this.AddList.goodsImg  = url
     },
     Add(){

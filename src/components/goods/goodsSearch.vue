@@ -114,7 +114,8 @@ import {mapState,mapActions} from 'vuex'
 export default {
   name:"goodsSearch",
   computed:{
-      ...mapState("GoodsStore",["search"])
+      ...mapState("GoodsStore",["search"]),
+      ...mapState("MemberStore",["ip"])
     },
     methods:{
       ...mapActions("GoodsStore",["getMethod"]),

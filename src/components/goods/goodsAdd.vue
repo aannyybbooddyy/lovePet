@@ -74,7 +74,8 @@ export default {
    
     
    computed: {
-    ...mapState("GoodsStore", ["AddList","dialogVisible"])
+    ...mapState("GoodsStore", ["AddList","dialogVisible"]),
+    ...mapState("MemberStore",["ip"])
   },
   methods: {
     async add(){
@@ -101,7 +102,7 @@ export default {
     //  ...mapMutations("GoodsStore",["reset"]),
     ...mapActions("GoodsStore", ["addGoods","getPet"]),
     handlePictureCardPreview(file){
-      let url = `http://127.0.0.1:3000${file}`.replace("public","").replace(/\\/g,"/")
+      let url = `http://${this.ip}:3000${file}`.replace("public","").replace(/\\/g,"/")
       this.AddList.goodsImg  = url
     }
   },

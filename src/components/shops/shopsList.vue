@@ -22,7 +22,8 @@
     <el-table-column
       prop="shopFeature"
       label="特色"
-      width="120">
+      width="120"
+     >
     </el-table-column>
     <el-table-column
       prop="shopAdd"
@@ -119,19 +120,20 @@ import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
+   
       imageUrl:"" ,
       dialogFormVisible: false,
-      shopsdata: []
+      shopsdata: {}
     };
   },
-  created: function() {
-    this.getshop();
-  },
-  computed: { ...mapState("ShopStore", ["statearr"]) },
+
+  computed: { ...mapState("ShopStore", ["statearr"]),
+   ...mapState("MemberStore",["ip"]) },
   methods: {
     ...mapActions("ShopStore", ["getshop", "deleteshop", "modificationAsync"]),
     modifyshop: function(item) {
-      // console.log(item);
+      console.log(item);
+      item.shopFeature = item.shopFeature.join("")
       this.dialogFormVisible = true;
       this.shopsdata = item;
     },
@@ -141,13 +143,13 @@ export default {
       this.dialogFormVisible = false;
     },
     handleAvatarSuccess(file) {
-      let url = `http://127.0.0.1:3000${file}`
+      let url = `http://${this.ip}:3000${file}`
         .replace("public", "")
         .replace(/\\/g, "/");
       this.shopsdata.shopsImg = url;
     },
     adduploadlmicenceImg(item) {
-      let url = `http://127.0.0.1:3000${item}`
+      let url = `http://${this.ip}:3000${item}`
         .replace("public", "")
         .replace(/\\/g, "/");
       this.shopsdata.lmicenceImg = url;
@@ -166,6 +168,9 @@ export default {
       }
       return isJPG && isLt2M;
     },
+  },
+    created: function() {
+    this.getshop();
   }
 };
 </script>

@@ -170,7 +170,8 @@ export default {
     }
   },
   computed:{//计算属性
-    ...mapState("PetStore",["ip","list3","dialogFormVisible2","isTure","list2","page2","rows2","curpage2","eachpage2","total2","maxpage2","search"]),
+    ...mapState("PetStore",["list3","dialogFormVisible2","isTure","list2","page2","rows2","curpage2","eachpage2","total2","maxpage2","search"]),
+     ...mapState("MemberStore",["ip"])
   },
   methods:{
     updata(parm){

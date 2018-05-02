@@ -106,7 +106,9 @@ export default {
   beforeMount: function() {
     // console.log(this.statearr)
   },
-  computed: { ...mapState("ShopStore", ["ruleForm"]) },
+  computed: { ...mapState("ShopStore", ["ruleForm"]),
+   ...mapState("MemberStore",["ip"])
+  },
 
   methods: {
     //展开map获取
@@ -116,11 +118,11 @@ export default {
       console.log(file, fileList);
     },
     handleAvatarSuccess(file) {
-      let url = `http://127.0.0.1:3000${file}`.replace("public","").replace(/\\/g,"/")
+      let url = `http://${this.ip}:3000${file}`.replace("public","").replace(/\\/g,"/")
       this.ruleForm.shopsImg  = url
     },
     adduploadlmicenceImg(item){
-      let url = `http://127.0.0.1:3000${item}`.replace("public","").replace(/\\/g,"/")
+      let url = `http://${this.ip}:3000${item}`.replace("public","").replace(/\\/g,"/")
       this.ruleForm.lmicenceImg  = url
     },
 

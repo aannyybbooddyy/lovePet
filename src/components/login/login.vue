@@ -23,19 +23,21 @@
   </div>
 </template>
 <script>
-import {mapState, mapActions} from "vuex"
+import {mapState, mapActions ,mapMutations} from "vuex"
 export default {
   name:"login",
   computed:{
     ...mapState("Login",["loginUser","loginRule","curUser"])
   },
   methods: {
+    ...mapMutations("Login",["saveUser"]),
     ...mapActions("Login",["judgeLoginUserAsync"]),
     async submitForm(formName) {
       await this.judgeLoginUserAsync(this.loginUser);
       if(this.curUser == -1){
         this.$message.error("登录失败！");
       }else{
+        await this.saveUser(this.curUser);
         this.$message({
           message: "恭喜你，登录成功啦",
           type: "success"
@@ -44,7 +46,7 @@ export default {
           this.$router.push({
             path: `/home`
           })
-        }, 2000);
+        }, 1000);
       }
     },
     resetForm() {

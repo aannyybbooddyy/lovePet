@@ -35,6 +35,10 @@ const store = {
       mutations: {
         setType(state,value){
           state.curUser = value;
+        },
+        saveUser(value){
+          console.log(JSON.stringify(value.curUser),"当前保存的用户")
+          localStorage.setItem("curUser", JSON.stringify(value.curUser));
         }
         
         

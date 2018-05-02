@@ -14,15 +14,17 @@ hc.url("localhost:3001");
 router.get("/", function(req, res, next) {
   let page = req.query.page || 1;
   let rows = req.query.rows || 5;
-  hc.get("/users", { page, rows }).then(function(data) {
+  let userType = "0";
+  hc.get("/users", { page, rows ,userType }).then(function(data) {
     res.send(data);
   });
 });
-
+// 得到已经通过验证的用户
 router.get("/shopkeeper", function(req, res, next) {
   let page = req.query.page || 1;
   let rows = req.query.rows || 5;
-  hc.get("/shopkeeper", { page, rows }).then(function(data) {
+  let userType = "1"
+  hc.get("/users", { page, rows, userType }).then(function(data) {
     res.send(data);
   });
 });
@@ -30,7 +32,7 @@ router.get("/shopkeeper", function(req, res, next) {
 router.get("/serch", function(req, res, next) {
   let text = req.query.text || "";
   let a = [];
-  hc.get("/shopkeeper").then(function(data) {
+  hc.get("/users",{userType:"1"}).then(function(data) {
     for(let i = 0 ; i < data.length ; i++){
       if(data[i].userName == text){
         res.send(data[i]);
@@ -49,22 +51,24 @@ router.get("/regAcount",function(req,res,next){
         res.send(data[i])
       }
     }
-    hc.get("/shopkeeper").then(function(data){
-      let b = [];
-      for(let i = 0 ; i < data.length ; i++){
-        if(data[i].userAcount == value){
-          res.send(data[i])
-        }
-      }
-      res.send(b)
-    })
+    res.send(a)
   })
 })
 // 登录时判断
 router.get("/login",function(req,res,next){
   let acount = req.query.acount;
   let password = req.query.password;
-  hc.get("/shopkeeper").then(function(data){
+  hc.get("/users",{userType:"2"}).then(function(data){
+    let a = [];
+    for(let i = 0 ; i < data.length ; i++){
+      if(data[i].userAcount == acount){
+        if(data[i].userPwd == password){
+          res.send(data[i])
+        }
+      }
+    }
+  })
+  hc.get("/users",{userType:"1"}).then(function(data){
     let a = [];
     for(let i = 0 ; i < data.length ; i++){
       if(data[i].userAcount == acount){
@@ -83,23 +87,15 @@ router.post("/addUser", function(req, res, next) {
   let userName = req.body.userName;
   let userPhone = req.body.userPhone;
   let userPwd = req.body.userPwd;
-  let userType = 0;
+  let userType = "0";
   hc.post("/users", {userAcount,userMail,userName,userPhone,userPwd,userType}).then(function() {
     res.send("suc");
   });
 });
-router.post("/", function(req, res, next) {
-  let id = req.body.userId;
-  let userAcount = req.body.userAcount;
-  let userMail = req.body.userMail;
-  let userName = req.body.userName;
-  let userPhone = req.body.userPhone;
-  let userPwd = req.body.userPwd;
-  let userType = 1;
-  hc.post("/shopkeeper", {userAcount,userMail,userName,userPhone,userPwd,userType}).then(function() {
-    res.send("suc");
-  });
-  hc.delete("/users/" + id).then(function() {
+// 让用户通过审核
+router.put("/addShopkeeper", function(req, res, next) {
+  let id = req.body.id;
+  hc.put("/users/" + id, { userType : "1" }).then(function() {
     res.send("suc");
   });
 });
@@ -111,7 +107,7 @@ router.delete('/',function(req,res,next){
 })
 router.delete('/dlt',function(req,res,next){
   let id = req.body.userId;
-  hc.delete("/shopkeeper/" + id).then(function() {
+  hc.delete("/users/" + id).then(function() {
     res.send("suc");
   });
 })
@@ -123,7 +119,7 @@ router.put("/midificat", function(req, res, next) {
   let userPhone = req.body.phone;
   let userPwd = req.body.pwd;
   let id = req.body.id;
-  hc.put("/shopkeeper/" + id, { userAcount, userMail, userName, userPhone, userPwd }).then(function() {
+  hc.put("/users/" + id, { userAcount, userMail, userName, userPhone, userPwd }).then(function() {
     res.send("suc");
   });
 });
@@ -131,10 +127,17 @@ router.put("/midificat", function(req, res, next) {
 router.get("/shops", function(req, res, next) {
   let page = req.query.page || 1;
   let rows = req.query.rows || 5;
-  hc.get("/shops", { page, rows }).then(function(data) {
+  let shopsType = "0";
+  hc.get("/shops", { page, rows , shopsType }).then(function(data) {
     res.send(data);
   });
 });
-
+// 让门店通过审核
+router.put("/theShop",function(req,res,next){
+  let id = req.body.id;
+  hc.put("/shops/" + id, { shopsType : "1" }).then(function() {
+    res.send("suc");
+  });
+})
 
 module.exports = router;

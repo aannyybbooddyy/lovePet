@@ -35,7 +35,19 @@ const store = {
         const data = await fetch(`/users/shops?page=${state.curpage}&rows=${state.eachpage}`).then(response => response.json());
         context.commit("getShops", data);
     },
+    // 让店铺通过验证
+    async postShopsAsync(context,item){
+        console.log(item,"item");
+        await fetch('/users/theShop', {
+            method: "PUT",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `id=${item._id}`
+        })
+    }
     
     }
 }
 export {store as default}
+// lmicenceImg=${item.lmicenceImg}&shopAdd=${item.shopAdd}&shopCorporate=${item.shopCorporate}&shopFeature=${item.shopFeature}&shopImg=${item.shopImg}&shopLicenceNum=${item.shopLicenceNum}&shopName=${item.shopName}&shopTel=${item.shopTel}

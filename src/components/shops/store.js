@@ -11,29 +11,26 @@ const store = {
       shopFeature: [],
       id: "",
       shopsImg:"",
-      lmicenceImg:""
+      lmicenceImg:"",
+      shopsType:"0",
+      userid:"",
     },
     statearr: []
-    ,
-    dialogImageUrl: "",
-    dialogVisible: false,
   },
   //方法
   mutations: {
-    // {shopAdd,shopCorporate,shopFeature,shopLicenceNum,shopName,shopTel,_id}
     getshops(state, data) {
       state.statearr.splice(0)
       for (let i = 0; i < data.length; i++) {
         state.statearr.push(data[i]);
       }
-      // console.log(state.statearr,"look")
     },
   },
   // 异步操作
   actions: {
     //fetch请求路径
     async getshop(context) {
-      const data = await fetch("/shops").then(Response => Response.json())
+      const data = await fetch("/shops?userId=" + JSON.parse(localStorage.getItem("curUser"))._id).then(Response => Response.json())
       // console.log(data)
       context.commit("getshops", data)
     },
@@ -41,13 +38,15 @@ const store = {
     async addshop(context) {
       let ruleForm = context.state.ruleForm
       console.log(ruleForm)
+      let theUser = {};
+      let userId = JSON.parse(localStorage.getItem("curUser"))._id;
       console.log("进入添加")
       await fetch("/shops", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(ruleForm)
+        body: JSON.stringify({userId,...ruleForm})
       }).then().catch()
     },
       //删除
@@ -70,7 +69,7 @@ const store = {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `shopsImg=${item.shopsImg}&shopName=${item.shopName}&shopLicenceNum=${item.shopLicenceNum}&shopAdd=${item.shopAdd}&shopCorporate=${item.shopCorporate}&shopTel=${item.shopTel}&shopFeature=${item.shopFeature}&id=${item._id}&lmicenceImg=${item.lmicenceImg}`
+        body: `userId=${JSON.parse(localStorage.getItem("curUser"))._id}&shopsImg=${item.shopsImg}&shopName=${item.shopName}&shopLicenceNum=${item.shopLicenceNum}&shopAdd=${item.shopAdd}&shopCorporate=${item.shopCorporate}&shopTel=${item.shopTel}&shopFeature=${item.shopFeature}&id=${item._id}&lmicenceImg=${item.lmicenceImg}`
       })
     }
   },

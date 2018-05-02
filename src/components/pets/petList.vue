@@ -97,9 +97,9 @@
       <div style="width:500px;margin:auto;">
         <el-form :model="list3" ref="form" label-width="100px">
 
-          <el-form-item label="用户">
+          <!-- <el-form-item label="用户">
             <el-input v-model="list3.userId"></el-input>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="品种">
             <el-input v-model="list3.petVarieties"></el-input>
           </el-form-item>

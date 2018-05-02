@@ -62,13 +62,13 @@ const store = {
   actions: {
     async getPet(context) {
       // const { curPage, eachPage } = context.state
-      const data = await fetch(`/members`).then(response => response.json());
+      const data = await fetch(`/services`).then(response => response.json());
       context.commit("addPet", data);
     },
     async addService(context) {
       // const { curPage, eachPage } = context.state
       let serviceList = context.state.serviceList
-      await fetch('/members', {
+      await fetch('/services', {
         method: "post",
         headers: {
           'Content-Type': 'application/json'
@@ -78,7 +78,7 @@ const store = {
       await context.dispatch('getPet')
     },
     async delService(context, parm) {
-      await fetch("/members", {
+      await fetch("/services", {
         method: "delete",
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -90,7 +90,7 @@ const store = {
     async onChange(context, parm) {
       context.state.isChange=!context.state.isChange
       let changeList = context.state.changeList
-      await fetch("/members",{
+      await fetch("/services",{
         method:"put",
         headers:{
           'Content-Type': 'application/json'

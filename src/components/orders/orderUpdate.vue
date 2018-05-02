@@ -118,7 +118,7 @@ export default {
         this.$refs[formName].resetFields();
       },
       handleAdd(row){
-        row.count += 1;
+        row.count = ~~row.count + 1;
       },
       handleMinus(row){
         if(row.count == 0) return;

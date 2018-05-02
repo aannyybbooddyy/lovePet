@@ -12,50 +12,48 @@
         inactive-text="按字段查询">
       </el-switch>
     </div>
-    
-    <div v-if="searchType" class="item">
+    <div style="overflow:hidden">
+      <div v-if="searchType" class="item">
 
-      <el-form-item  label="订单ID">
-        <el-input type="text" v-model="form.orderId" ></el-input>
-      </el-form-item>
-    </div>
-    <div v-else>
-
-      <div class="item">
-
-        <el-form-item 
-        label="订单总额"
-        prop="total"
-
-        >
-          <el-input v-model.number="form.orderTotal" ></el-input>
-          <!-- <el-input type="number" v-model.number="form.orderTotal" auto-complete="off"></el-input> -->
+        <el-form-item  label="订单ID">
+          <el-input type="text" v-model="form.orderId" ></el-input>
         </el-form-item>
       </div>
-      <div class="item">
-      <el-form-item label="订单状态">
-        <el-radio-group v-model="form.orderStatus">
-          <el-radio label=1>已付款</el-radio>
-          <el-radio label=2>未付款</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      </div>
-      
-      <div class="item">
+      <div v-else>
+        <div class="item">
+          <el-form-item 
+          label="订单总额"
+          prop="total"
+          >
+            <el-input v-model.number="form.orderTotal" ></el-input>
+            <!-- <el-input type="number" v-model.number="form.orderTotal" auto-complete="off"></el-input> -->
+          </el-form-item>
+        </div>
+        <div class="item">
+          <el-form-item label="订单状态">
+            <el-radio-group v-model="form.orderStatus">
+              <el-radio label=1>已付款</el-radio>
+              <el-radio label=2>未付款</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </div>
+        
+        <div class="item">
 
-        <el-form-item  label="买家ID">
-          <el-input v-model="form.memberId"></el-input>
-        </el-form-item>
-      </div>
-      <div class="item">
+          <el-form-item  label="买家ID">
+            <el-input v-model="form.memberId"></el-input>
+          </el-form-item>
+        </div>
+        <div class="item">
 
-        <el-form-item label="收货地址">
-          <el-input v-model="form.sendAdd" ></el-input>
-        </el-form-item>
+          <el-form-item label="收货地址">
+            <el-input v-model="form.sendAdd" ></el-input>
+          </el-form-item>
+        </div>
       </div>
     </div>
-    <div>
-      <el-form-item class="item">
+    <div style="width:40%;margin-left:32%">
+      <el-form-item >
         <el-button type="primary" @click="onSubmit">开始查询</el-button>
         <el-button @click="onReset('form')">取消</el-button>
       </el-form-item>
@@ -249,8 +247,8 @@ export default {
 }
 .switch {
   justify-content: center;
-  width: 20%;
+  width: 40%;
   height: 50px;
-  margin-left: 40%;
+  margin-left: 30%;
 }
 </style>

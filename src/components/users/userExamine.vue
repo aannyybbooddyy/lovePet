@@ -1,32 +1,32 @@
 <template>
 <div>
   <el-table
-    :data="checkList.rows"
+    :data="examine.rows"
     style="width: 100%">
     <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
-          <el-form-item label="店铺名称">
-            <span>{{ props.row.shopName}}</span>
+          <el-form-item label="店主名称">
+            <span>{{ props.row.userName}}</span>
           </el-form-item>
-          <el-form-item label="执照号码">
-            <span>{{ props.row.shopLicenceNum}}</span>
+          <el-form-item label="店主邮箱">
+            <span>{{ props.row.userMail}}</span>
           </el-form-item>
-          <el-form-item label="店铺地址">
-            <span>{{ props.row.shopAdd }}</span>
+          <el-form-item label="店主账号">
+            <span>{{ props.row.userAcount }}</span>
           </el-form-item>
-          <el-form-item label="店铺电话">
-            <span>{{ props.row.shopTel }}</span>
+          <el-form-item label="店主电话">
+            <span>{{ props.row.userPhone }}</span>
           </el-form-item>
-          <el-form-item label="店主名字">
-            <span>{{ props.row.shopCorporate }}</span>
+          <el-form-item label="店主密码">
+            <span>{{ props.row.userPwd }}</span>
           </el-form-item>
-          <el-form-item label="店铺ID">
+          <el-form-item label="店主权限">
+            <span>{{ props.row.userType }}</span>
+          </el-form-item>
+          <el-form-item label="店主ID">
             <span>{{ props.row._id }}</span>
           </el-form-item>
-          <!-- <el-form-item label="店主ID">
-            <span>{{ props.row._id }}</span>
-          </el-form-item> -->
           <el-form-item label="操作">
             <el-button
               size="mini"
@@ -45,22 +45,22 @@
     </el-table-column>
     <el-table-column
       label="店主名称"
-      prop="shopName">
+      prop="userName">
     </el-table-column>
     <el-table-column
       label="电话"
-      prop="shopTel">
+      prop="userPhone">
     </el-table-column>
   </el-table>
   <el-pagination
       style="width: 100%;"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="checkList.curpage"
+      :current-page="examine.curpage"
       :page-sizes="[5, 10, 15, 20]"
-      :page-size="checkList.eachpage"
+      :page-size="examine.eachpage"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="checkList.total">
+      :total="examine.total">
     </el-pagination>
 </div>
 </template>
@@ -69,32 +69,33 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name: "userExamine",
   computed: {
-    ...mapState("Check", [
-      "checkList"
+    ...mapState("UserStore", [
+      "examine",
+      "list"
     ])
   },
   created: function() {
-    this.getShopsAsync(this.checkList);
+    this.getUsersAsync(this.examine);
   },
   watch:{
-    'checkList.curpage':function(){
-      this.getShopsAsync(this.checkList);
+    'examine.curpage':function(){
+      this.getUsersAsync(this.examine);
     },
-    'checkList.eachpage':function(){
-      this.getShopsAsync(this.checkList);
+    'examine.eachpage':function(){
+      this.getUsersAsync(this.examine);
     }
   },
   methods: {
-    ...mapMutations("Check", ["getUsers","handleSizeChange","handleCurrentChange"]),
-    ...mapActions("Check", ["getShopsAsync","getShopkeeperAsync","theUserDeleteAsync","getUsersTypeAsync","postUserToOneAsync"]),
+    ...mapMutations("UserStore", ["getUsers","handleSizeChange","handleCurrentChange"]),
+    ...mapActions("UserStore", ["getUsersAsync","getShopkeeperAsync","theUserDeleteAsync","getUsersTypeAsync","postUserToOneAsync"]),
     handlePass: async function(data){
         await this.postUserToOneAsync(data);
-        this.getShopsAsync(this.checkList);
+        this.getUsersAsync(this.examine);
         this.getShopkeeperAsync(this.list);
     },
     handleDelete:async function(id){
         await this.theUserDeleteAsync(id);
-        this.getShopsAsync(this.checkList);
+        this.getUsersAsync(this.examine);
         this.getShopkeeperAsync(this.list);
     }
   }
@@ -116,5 +117,3 @@ export default {
   width: 50%;
 }
 </style>
-
-// check

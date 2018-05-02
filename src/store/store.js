@@ -7,7 +7,10 @@ import PetStore from "../components/pets/store"
 import OrderStore from "../components/orders/store"
 import ShopStore from "../components/shops/store"
 import UserStore from "../components/users/store"
-
+import Register from "../components/register/store"
+import Login from "../components/login/store"
+import Check from "../components/check/store"
+import Home from "../components/home/store"
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -18,6 +21,10 @@ export default new Vuex.Store({
       PetStore,
       OrderStore,
       ShopStore,
-      UserStore
+      UserStore,
+      Register,
+      Login,
+      Check,
+      Home
     }
   })

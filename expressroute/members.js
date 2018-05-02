@@ -35,7 +35,7 @@ router.post("/", function(req, res, next) {
   let memberPhone = req.body.memberPhone + "";
   let memberAcount = req.body.memberAcount;
   let memberName = req.body.memberName;
-  let memberCard = req.body.memberCard;
+  let memberCard = req.body.memberCard + "";
   let memberAdd = req.body.memberAdd;
   let memberArea = req.body.memberArea;
   let memberPoint = req.body.memberPoint;

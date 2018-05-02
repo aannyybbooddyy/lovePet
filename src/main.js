@@ -93,16 +93,6 @@ Vue.component("UserAdd",UserAdd);
 Vue.component("UserList",UserList);
 Vue.component("UserExamine",UserExamine);
 
-
-
-
-
-
-
-
-
-
-
 new Vue({
   el: '#app',
   router,

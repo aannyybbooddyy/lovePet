@@ -13,7 +13,6 @@ import Users from "../components/users/user.vue"
 import Check from "../components/check/check.vue"
 
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {

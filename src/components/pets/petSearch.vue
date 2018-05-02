@@ -170,7 +170,7 @@ export default {
     }
   },
   computed:{//计算属性
-    ...mapState("PetStore",["list3","dialogFormVisible2","isTure","list2","page2","rows2","curpage2","eachpage2","total2","maxpage2","search"]),
+    ...mapState("PetStore",["ip","list3","dialogFormVisible2","isTure","list2","page2","rows2","curpage2","eachpage2","total2","maxpage2","search"]),
   },
   methods:{
     updata(parm){
@@ -183,7 +183,7 @@ export default {
     handleAvatarSuccess(res, file) {
     //转换路格式
       let url = res.replace("public\\", "").replace("\\","/")
-      this.list3.petImg = `http://127.0.0.1:3000/${url}`
+      this.list3.petImg = `http://${this.ip}:3000/${url}`
       this.getPet()
     },
     beforeAvatarUpload(file) {

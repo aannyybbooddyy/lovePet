@@ -150,7 +150,7 @@ export default {
     },
   },
   computed:{
-    ...mapState("MemberStore",["isTure","dialogVisible2","list","list3","page","rows","curpage","eachpage","total","maxpage"]),
+    ...mapState("MemberStore",["ip","isTure","dialogVisible2","list","list3","page","rows","curpage","eachpage","total","maxpage"]),
   },
   methods:{
     up(parm){
@@ -162,7 +162,7 @@ export default {
     },
      handleAvatarSuccess(res, file) {
        let url = res.replace("public\\", "").replace("\\","/")
-       this.list3.memberImg = `http://127.0.0.1:3000/${url}`
+       this.list3.memberImg = `http://${this.ip}:3000/${url}`
        this.getCember()
       },
      beforeAvatarUpload(file) {

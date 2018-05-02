@@ -51,7 +51,7 @@ import {mapState,mapMutations,mapGetters,mapActions} from "vuex"
 export default {
   name:"memberAdd",
   computed:{
-    ...mapState("MemberStore",["form","total","rules"]),
+    ...mapState("MemberStore",["form","total","rules","ip"]),
   },
   methods:{
      ...mapActions("MemberStore",["addCember","getCember"]),
@@ -93,7 +93,7 @@ export default {
      handleAvatarSuccess(res, file) {
        console.log(res)
        let url = res.replace("public\\", "").replace("\\","/")
-       this.form.memberImg = `http://127.0.0.1:3000/${url}`
+       this.form.memberImg = `http://${this.ip}:3000/${url}`
       },
      beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';

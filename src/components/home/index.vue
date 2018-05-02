@@ -11,7 +11,6 @@
       <el-row class="tac">
         <el-col >
           <el-menu
-            :default-openeds="defaultopends"
             class="el-menu-vertical-demo"
             router
             >

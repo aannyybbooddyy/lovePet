@@ -3,6 +3,7 @@
 const store = {
     namespaced:true, 
       state: { //数据
+        ip:"192.168.192.2",
         form:{
           petVarieties:"",
           petHair:"",

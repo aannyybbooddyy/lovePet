@@ -57,7 +57,7 @@ import {mapState,mapMutations,mapGetters,mapActions} from "vuex"
 export default {
   name:"petAdd",
    computed:{
-    ...mapState("PetStore",["form","total"]),
+    ...mapState("PetStore",["form","total","ip"]),
   },
   methods:{
     ...mapActions("PetStore",["addPet","getPet"]),
@@ -80,7 +80,7 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       let url=res.replace("public\\","").replace("\\","/")
-      this.form.petImg=`http://127.0.0.1:3000/${url}`
+      this.form.petImg=`http://${this.ip}:3000/${url}`
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg';

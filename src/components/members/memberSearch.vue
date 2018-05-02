@@ -161,9 +161,29 @@ export default {
     }
   },
     computed:{
-     ...mapState("MemberStore",["list3","dialogVisible","isTure","list2","page2","rows2","curpage2","eachpage2","total2","maxpage2","search"]),
+     ...mapState("MemberStore",["ip","list3","dialogVisible","isTure","list2","page2","rows2","curpage2","eachpage2","total2","maxpage2","search"]),
   },
     methods:{
+          del(parm){
+          this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+           confirmButtonText: '确定',
+           cancelButtonText: '取消',
+           type: 'warning',
+           center: true
+         }).then(async () => {
+          await  this.delMembers(parm)
+           this.searchMembers()
+           this.$message({
+             type: 'success',
+             message: '删除成功!'
+           });
+         }).catch(() => {
+           this.$message({
+             type: 'info',
+             message: '已取消删除'
+           });
+         });
+    },
       up(parm){
       this.updata(parm)
     },
@@ -173,7 +193,7 @@ export default {
     },
      handleAvatarSuccess(res, file) {
        let url = res.replace("public\\", "").replace("\\","/")
-       this.list3.memberImg = `http://127.0.0.1:3000/${url}`
+       this.list3.memberImg = `http://${this.ip}:3000/${url}`
        this.getCember()
       },
      beforeAvatarUpload(file) {
@@ -193,14 +213,15 @@ export default {
             done();
           })
           .catch(_ => {});
-      },    del(parm){
+      },
+      del(parm){
           this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
            confirmButtonText: '确定',
            cancelButtonText: '取消',
            type: 'warning',
            center: true
          }).then(async () => {
-           await this.delMembers(parm._id)
+           await this.delMembers(parm)
            await this.searchMembers()
            this.$message({
              type: 'success',
@@ -214,7 +235,7 @@ export default {
          });
     },
     ...mapMutations("MemberStore",["getdialogVisible","updata","handleSizeChange2","handleCurrentChange2"]),
-    ...mapActions("MemberStore",["searchMembers","updata2","delMembers","getCember"])
+    ...mapActions("MemberStore",["delMembers","searchMembers","updata2","delMembers","getCember"])
   }
 }
 </script>

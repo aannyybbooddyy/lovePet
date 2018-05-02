@@ -161,7 +161,7 @@ export default {
     },
   },
   computed:{
-    ...mapState("PetStore",["isTure","dialogFormVisible","list","list3","page","rows","curpage","eachpage","total","maxpage"]),
+    ...mapState("PetStore",["ip","isTure","dialogFormVisible","list","list3","page","rows","curpage","eachpage","total","maxpage"]),
   },
   methods:{
 
@@ -177,7 +177,7 @@ export default {
     handleAvatarSuccess(res, file) {
     //转换路格式
       let url = res.replace("public\\", "").replace("\\","/")
-      this.list3.petImg = `http://127.0.0.1:3000/${url}`
+      this.list3.petImg = `http://${this.ip}:3000/${url}`
       this.getPet()
     },
     beforeAvatarUpload(file) {

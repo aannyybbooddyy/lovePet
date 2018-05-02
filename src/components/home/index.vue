@@ -2,7 +2,9 @@
 
 <el-container>
   <el-header height="120px">
-      <h1 style="font-family:'方正卡通简体'">爱宠邦</h1>
+    <!-- <i class="homeRun1"></i> -->
+      <h1 style="font-family:'方正卡通简体';font-size:32px">爱宠邦</h1>
+    <!-- <i class="homeRun2"></i> -->
 
   </el-header>
   <el-container >
@@ -14,8 +16,8 @@
             class="el-menu-vertical-demo"
             router
             >
-            <el-submenu index="1" >
-              <template slot="title">
+            <el-submenu index="1" :disabled="userTrue" >
+              <template slot="title"  >
                 <div  style="display:flex;flex-direction:row;align-items:center;font-family:'方正卡通简体'">
                   <i class="hm1"></i>
                   <span>平台管理员</span>
@@ -40,8 +42,8 @@
                 </div>
                 </el-menu-item>
             </el-submenu>
-            <el-submenu index="2">
-              <template slot="title">
+            <el-submenu index="2" :disabled="keeperTrue">
+              <template slot="title" disabled="false">
                 <div  style="display:flex;flex-direction:row;align-items:center;font-family:'方正卡通简体'">
                   <i class="hm2"></i>
                   <span>门店管理员</span>
@@ -93,18 +95,26 @@
 
 
 <script>
-import { mapState } from "vuex"
+import { mapState, mapMutations } from "vuex"
 export default {
   name: "homepage",
   data(){
       return {
-          defaultopends:["2"]
+          defaultopends:["2"],
+          userTrue:true,
+          keeperTrue:false,
       }
   },
   beforeMount:function(){
-    console.log(this.curUser,"oh")
+    this.getCurUser();
+    console.log(this.curUser,"this.curUser")
+    if(this.curUser.userType == 2){
+      this.userTrue = false,
+      this.keeperTrue = true
+    }
   },
   methods: {
+    ...mapMutations("Home",["getCurUser"]),
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -113,25 +123,49 @@ export default {
     }
   },
   computed : {
-    ...mapState("Login",["curUser"])
+    ...mapState("Home",["curUser"])
   }
 };
 </script>
 
 <style>
 .el-header {
-  background-color: rgb(169, 206, 175);
+  /* background-color: rgb(169, 206, 175); */
   color: #333;
   border-top-left-radius: 10px; 
   border-top-right-radius: 10px; 
   line-height: 60px;
   background: url("../../img/homebac.png");
+  /* background-size: 150px 120px;  */
+  display: flex;
+  flex-direction: row;
 }
-
+/* .homeRun1{
+  display: inline-block;
+  width: 150px;
+  height: 120px;
+  position: absolute;
+  left:0 ;
+  background: url("../../img/homeRun.gif")no-repeat;
+  background-size: 150px 120px; 
+  transform: rotateY(180deg)
+} */
+/* .homeRun2{
+  display: inline-block;
+  width: 150px;
+  height: 120px;
+  position: absolute;
+  left:87% ;
+  background: url("../../img/homeRun.gif")no-repeat;
+  background-size: 150px 120px; 
+  z-index: 2;
+} */
 .el-aside {
   color: #333;
 }
-
+/* .el-main{
+  background: url("../../img/homebac.png");
+} */
 
 
 .hm1{

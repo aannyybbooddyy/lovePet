@@ -24,9 +24,6 @@
           <el-form-item label="店铺ID">
             <span>{{ props.row._id }}</span>
           </el-form-item>
-          <!-- <el-form-item label="店主ID">
-            <span>{{ props.row._id }}</span>
-          </el-form-item> -->
           <el-form-item label="操作">
             <el-button
               size="mini"
@@ -86,16 +83,14 @@ export default {
   },
   methods: {
     ...mapMutations("Check", ["getUsers","handleSizeChange","handleCurrentChange"]),
-    ...mapActions("Check", ["getShopsAsync","getShopkeeperAsync","theUserDeleteAsync","getUsersTypeAsync","postUserToOneAsync"]),
+    ...mapActions("Check", ["getShopsAsync","getShopkeeperAsync","theUserDeleteAsync","postShopsAsync","postUserToOneAsync"]),
     handlePass: async function(data){
-        await this.postUserToOneAsync(data);
+        await this.postShopsAsync(data);
         this.getShopsAsync(this.checkList);
-        this.getShopkeeperAsync(this.list);
     },
     handleDelete:async function(id){
         await this.theUserDeleteAsync(id);
         this.getShopsAsync(this.checkList);
-        this.getShopkeeperAsync(this.list);
     }
   }
 };

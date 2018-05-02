@@ -51,7 +51,7 @@ export default {
             this.$router.push({
               path: `/`
           })
-          }, 2000);
+          }, 1000);
         } else {
           this.$message.error('注册失败了老铁');
           return false;

@@ -20,6 +20,7 @@ const store = {
       rows: []
     },
     searchUser:[]
+
   },
   mutations: {
     getSearchUser(state,data){
@@ -80,12 +81,13 @@ const store = {
     },
     // 让用户通过验证
     async postUserToOneAsync(context,item) {
-      await fetch('/users', {
-        method: "POST",
+      console.log(item,"item");
+      await fetch('/users/addShopkeeper', {
+        method: "PUT",
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `userAcount=${item.userAcount}&userMail=${item.userMail}&userName=${item.userName}&userPhone=${item.userPhone}&userPwd=${item.userPwd}&userType=${item.userType}&userId=${item._id}`
+        body: `id=${item._id}`
       })
     },
     // 删除用户

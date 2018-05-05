@@ -133,7 +133,7 @@ export default {
     ...mapActions("ShopStore", ["getshop", "deleteshop", "modificationAsync"]),
     modifyshop: function(item) {
       console.log(item);
-      item.shopFeature = item.shopFeature.join("")
+      // item.shopFeature = item.shopFeature.join("")
       this.dialogFormVisible = true;
       this.shopsdata = item;
     },

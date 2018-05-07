@@ -18,10 +18,11 @@ const store = {
   // 同步处理方法
   mutations: {
     list(state, parm) {
-      this.state.GoodsStore.goodsList = parm
+      console.log(parm)
+      this.state.GoodsStore.goodsList = parm.rows
     },
     serch(state,parm){
-      this.state.GoodsStore.search = parm
+      this.state.GoodsStore.search = parm.rows
     },
     close(state,parm){
       state.centerDialogVisible= false

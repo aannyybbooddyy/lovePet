@@ -81,9 +81,12 @@
       width="100">
     </el-table-column>
     <el-table-column
-      prop="goodsImg"
       label="图片"
       width="120">
+       <template slot-scope="scope">
+         <img v-if="scope.row.goodsImg" :src="scope.row.goodsImg" style="width:50px;height:50px"/>
+         <img v-else src="img/touxiang.png" style="width:50px;height:50px"/>
+       </template>
     </el-table-column>
      <el-table-column
      class="operations"
@@ -102,6 +105,7 @@
               title="提示"
               :visible.sync="centerDialogVisible"
               width="30%"
+              :before-close="close"
               center>
               
               <el-form v-model="Add" label-width="80px" >

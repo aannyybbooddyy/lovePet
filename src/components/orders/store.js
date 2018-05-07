@@ -14,11 +14,11 @@ const store = {
         searchTotal:0,
         name:"",
         curTab:"ordersList",
-      isUpdateDisabled:false,
-      curUser:{
-        userStatus:1,
-        _id:"5adff0031f5daad65810e6be"
-      },
+        isUpdateDisabled:false,
+        curUser:{
+          userStatus:1,
+          _id:"5adff0031f5daad65810e6be"
+        },
       updateInfo:{
         users:{},
         members:{},
